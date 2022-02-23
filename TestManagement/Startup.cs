@@ -4,9 +4,12 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using TestManagement.Core.Context;
+using TestManagement.Core.Helpers;
 
 namespace TestManagement
 {
@@ -24,7 +27,10 @@ namespace TestManagement
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddRazorPages();
+            services.AddSwagger("Covid-19 Test Management");
+            services.AddControllers();
+            
+            services.AddDbContext<DataContext>(item => item.UseSqlServer(Configuration.GetConnectionString("Default")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -34,20 +40,18 @@ namespace TestManagement
             {
                 app.UseDeveloperExceptionPage();
             }
-            else
-            {
-                app.UseExceptionHandler("/Error");
-            }
 
-            app.UseStaticFiles();
+            app.UseCustomSwaggerApi("Sales Management");
+            app.UseRouting();
 
             app.UseRouting();
 
-            app.UseAuthorization();
+
+            app.UseRouting();
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapRazorPages();
+                endpoints.MapControllers();
             });
         }
     }
