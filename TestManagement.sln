@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.32112.339
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestManagement", "TestManagement\TestManagement.csproj", "{BC6F71E6-7300-4E8A-91FD-4A1F5E686CDE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestManagement.Core", "TestManagement.Core\TestManagement.Core.csproj", "{606083B2-9772-4960-8802-E84BFF08640B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BC6F71E6-7300-4E8A-91FD-4A1F5E686CDE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BC6F71E6-7300-4E8A-91FD-4A1F5E686CDE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BC6F71E6-7300-4E8A-91FD-4A1F5E686CDE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BC6F71E6-7300-4E8A-91FD-4A1F5E686CDE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{606083B2-9772-4960-8802-E84BFF08640B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{606083B2-9772-4960-8802-E84BFF08640B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{606083B2-9772-4960-8802-E84BFF08640B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{606083B2-9772-4960-8802-E84BFF08640B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {0199EE2F-752A-4D83-BE28-86FB1E43BB17}
+	EndGlobalSection
+EndGlobal
