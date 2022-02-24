@@ -13,9 +13,9 @@ namespace TestManagement.Core.Models
         public int PcrTestVenueId { get; set; }
         public DateTime BookingDate { get; set; }
         public string IdentityCardNumber { get; set; }
+
+        //The Id of the enum TestBookingStatuses
         public int PcrTestBookingStatusId { get; set; }
-        [ForeignKey("PcrTestBookingStatusId")]
-        public PcrTestBookingStatuses PcrTestBookingStatuses { get; set; }
         public int UserId { get; set; }
         [ForeignKey("UserId")]
         public UserDetails UserDetails { get; set; }

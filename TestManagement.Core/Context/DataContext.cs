@@ -14,10 +14,9 @@ namespace TestManagement.Core.Context
         {
         }
 
+        public DbSet<UserDetails> UserDetails { get; set; }
         public DbSet<PcrTestBookings> PcrTestBookings { get; set; }
-        public DbSet<PcrTestBookingStatuses> PcrTestBookingStatuses { get; set; }
         public DbSet<PcrTestResults> PcrTestResults { get; set; }
-        public DbSet<PcrTestResultTypes> PcrTestResultTypes { get; set; }
         public DbSet<PcrTestVenueAllocations> PcrTestVenueAllocations { get; set; }
         public DbSet<PcrTestVenues> PcrTestVenues { get; set; }
     }

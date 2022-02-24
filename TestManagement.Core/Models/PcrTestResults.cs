@@ -12,10 +12,10 @@ namespace TestManagement.Core.Models
         [Key]
         public int PcrTestResultId { get; set; }
         public int PcrTestBookingId { get; set; }
-        [ForeignKey("PcrTestResultTypedId")]
+        [ForeignKey("PcrTestBookingId")]
         public PcrTestBookings PcrTestBookings { get; set; }
+
+        //The Id of the enum TestResultTypes
         public int PcrTestResultTypedId { get; set; }
-        [ForeignKey("PcrTestResultTypedId")]
-        public PcrTestResultTypes PcrTestResultTypes { get; set; }
     }
 }
