@@ -2,6 +2,8 @@
 using Microsoft.Extensions.DependencyInjection;
 using System.Data;
 using System.Data.SqlClient;
+using TestManagement.Core.Services;
+using TestManagement.Core.Services.Interfaces;
 
 namespace TestManagement
 {
@@ -19,6 +21,12 @@ namespace TestManagement
                 var connection = new SqlConnection(connectionString);
                 return connection;
             });
+
+
+            services.AddScoped<IReportingService, ReportingService>();
+            services.AddScoped<ITestResultService, TestResultService>();
+            services.AddScoped<IVenueService, VenueService>();
+            services.AddScoped<IRequestService, RequestService>();
         }
     }
 }
