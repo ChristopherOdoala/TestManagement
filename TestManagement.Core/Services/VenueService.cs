@@ -122,7 +122,7 @@ namespace TestManagement.Core.Services
 
 
                 var bookingsAllocation = from days in daysInMonth
-                                         join allocation in allocations on days equals allocation.AllocationDate into emp
+                                         join allocation in allocations on days.Day equals allocation.AllocationDate.Day into emp
                                          from res in emp.DefaultIfEmpty()
                                          select new GetDateWithCapacityDetails
                                          {
