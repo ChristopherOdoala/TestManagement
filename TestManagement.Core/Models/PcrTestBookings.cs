@@ -12,6 +12,8 @@ namespace TestManagement.Core.Models
         public int PcrTestBookingId { get; set; }
         public int PcrTestVenueId { get; set; }
         public DateTime BookingDate { get; set; }
+
+        //Auto Generated
         public string IdentityCardNumber { get; set; }
 
         //The Id of the enum TestBookingStatuses
