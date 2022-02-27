@@ -23,7 +23,7 @@ namespace TestManagement
             });
 
 
-            services.AddScoped<IReportingService, ReportingService>();
+            services.AddScoped<ITestReportingService, TestReportingService>();
             services.AddScoped<ITestResultService, TestResultService>();
             services.AddScoped<IVenueService, VenueService>();
             services.AddScoped<IRequestService, RequestService>();

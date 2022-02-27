@@ -10,5 +10,6 @@ namespace TestManagement.Core.Services.Interfaces
         ResultModel<string> BookForATest(RequestViewModel model);
         ResultModel<string> CancelBooking(string identityCardNumber);
         ResultModel<string> UpdateTestAsPerformed(string identityCardNumber);
+        ResultModel<List<GetBookingsViewModel>> GetAllBookings(QueryViewModel model);
     }
 }

@@ -1,9 +1,11 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using TestManagement.Core.Context;
 using TestManagement.Core.Enums;
+using TestManagement.Core.Helpers;
 using TestManagement.Core.Models;
 using TestManagement.Core.Services.Interfaces;
 using TestManagement.Core.ViewModels;
@@ -181,6 +183,34 @@ namespace TestManagement.Core.Services
                 resultModel.AddError(ex.Message);
             }
 
+            return resultModel;
+        }
+
+        public ResultModel<List<GetBookingsViewModel>> GetAllBookings(QueryViewModel model)
+        {
+            var resultModel = new ResultModel<List<GetBookingsViewModel>>();
+
+            var pageSize = model.PageSize == null || model.PageSize < 1 ? 10 : model.PageSize.Value;
+            var pageIndex = model.PageIndex == null || model.PageIndex < 1 ? 1 : model.PageIndex.Value;
+
+            try
+            {
+                var bookings = _dataContext.PcrTestBookings.Include(x => x.UserDetails).AsQueryable();
+
+                if (!bookings.Any())
+                {
+                    return resultModel;
+                }
+
+                resultModel.TotalCount = bookings.Count();
+
+                resultModel.Data = bookings.Paginate(pageIndex, pageSize).Select(x => (GetBookingsViewModel)x).ToList();
+            }
+            catch(Exception ex)
+            {
+                resultModel.AddError(ex.Message);
+            }
+            
             return resultModel;
         }
 

@@ -48,5 +48,15 @@ namespace TestManagement.Controller
 
             return ApiResponse(result.Data, codes: ApiResponseCodes.OK);
         }
+
+        [HttpGet]
+        public IActionResult GetAllBookings([FromQuery]QueryViewModel model)
+        {
+            var result = _requestService.GetAllBookings(model);
+            if (result.ErrorMessages.Any())
+                return ApiResponse(result.Data, errors: result.ErrorMessages.FirstOrDefault(), codes: ApiResponseCodes.ERROR);
+
+            return ApiResponse(result.Data, totalCount: result.Data == null ? 0 : result.TotalCount, codes: ApiResponseCodes.OK);
+        }
     }
 }
