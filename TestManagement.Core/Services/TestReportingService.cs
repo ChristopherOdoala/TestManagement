@@ -1,4 +1,5 @@
 ﻿using Dapper;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -45,6 +46,46 @@ namespace TestManagement.Core.Services
             return resultModel;
         }
 
+        public ResultModel<List<GetAllTestViewModel>> GetAllTestsDetails(out int totalCount)
+        {
+            var resultModel = new ResultModel<List<GetAllTestViewModel>>();
+            var parameters = new DynamicParameters();
+
+            try
+            {
+                var tests = ExecuteStoredProcedure<GetAllTestViewModel>("[Sp_GetAllTest]", parameters).Result;
+                totalCount = tests.FirstOrDefault().TotalCount;
+                resultModel.Data = tests.ToList();
+            }
+            catch(Exception ex)
+            {
+                resultModel.AddError(ex.Message);
+                totalCount = 0;
+            }
+
+            return resultModel;
+        }
+
+        public ResultModel<List<GetVenueWithCapacity>> GetVenueWithCapacity(out int totalCount)
+        {
+            var resultModel = new ResultModel<List<GetVenueWithCapacity>>();
+            var parameters = new DynamicParameters();
+
+            try
+            {
+                var tests = ExecuteStoredProcedure<GetVenueWithCapacity>("[Sp_GetAllVenue]", parameters).Result;
+                totalCount = tests.FirstOrDefault().TotalCount;
+                resultModel.Data = tests.ToList();
+            }
+            catch (Exception ex)
+            {
+                resultModel.AddError(ex.Message);
+                totalCount = 0;
+            }
+
+            return resultModel;
+        }
+
         public ResultModel<List<GetAllCaseTypeViewModel>> GetAllCaseType()
         {
             var resultModel = new ResultModel<List<GetAllCaseTypeViewModel>>();
@@ -68,6 +109,67 @@ namespace TestManagement.Core.Services
 
             return resultModel;
 
+        }
+
+        public ResultModel<List<GetBookingsReportViewModel>> GetBookingsReport()
+        {
+            var resultModel = new ResultModel<List<GetBookingsReportViewModel>>();
+
+            try
+            {
+                var bookingContext = _dataContext.PcrTestBookings;
+                var bookings = bookingContext
+                                .GroupBy(x => x.PcrTestBookingStatusId)
+                                .Select(t => new GetBookingsReportViewModel(t.Key)
+                                {
+                                    Count = t.Count()
+                                });
+                resultModel.TotalCount = bookingContext.Count();
+                resultModel.Data = bookings.ToList();
+            }
+            catch (Exception ex)
+            {
+                resultModel.AddError(ex.Message);
+            }
+
+            return resultModel;
+        }
+
+        public ResultModel<List<VenueBookingCapacityReportViewModel>> GetVenueBookingCapacityReport(DateQueryModel model)
+        {
+            var resultModel = new ResultModel<List<VenueBookingCapacityReportViewModel>>();
+
+            try
+            {
+                var bookingContext = _dataContext.PcrTestBookings.Include(x => x.PcrTestVenues).AsQueryable();
+                if (model.fromDate != null)
+                    bookingContext = bookingContext.Where(x => x.BookingDate.Day >= model.fromDate.Value.Day);
+                if(model.toDate != null)
+                    bookingContext = bookingContext.Where(x => x.BookingDate.Day <= model.toDate.Value.Day);
+
+                var bookings = (from v in _dataContext.PcrTestVenues.AsQueryable()
+                                join b in bookingContext on v.PcrTestVenueId equals b.PcrTestVenueId
+                                select new
+                                {
+                                    VenueName = v.Name,
+                                    BookingDate = b.BookingDate
+                                })
+                                .GroupBy(x => x.VenueName)
+                                .Select(x => new VenueBookingCapacityReportViewModel
+                                {
+                                    BookingCount = x.Count(),
+                                    VenueName = x.Key
+                                }).ToList();
+                                
+
+                resultModel.Data = bookings.ToList();
+            }
+            catch (Exception ex)
+            {
+                resultModel.AddError(ex.Message);
+            }
+
+            return resultModel;
         }
     }
 }

@@ -79,4 +79,21 @@ namespace TestManagement.Core.ViewModels
         }
     }
 
+    public class GetBookingsReportViewModel
+    {
+        public GetBookingsReportViewModel(int bookingStatus)
+        {
+            var bookingType = (TestBookingStatuses)bookingStatus;
+            BookingStatus = bookingType.ToString();
+        }
+        public string BookingStatus { get; set; }
+        public int Count { get; set; }
+    }
+
+    public class VenueBookingCapacityReportViewModel
+    {
+        public string VenueName { get; set; }
+        public int BookingCount { get; set; }
+    }
+
 }

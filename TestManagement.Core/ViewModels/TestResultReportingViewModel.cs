@@ -24,4 +24,15 @@ namespace TestManagement.Core.ViewModels
         public string Type { get; set; }
         public int Count { get; set; }
     }
+
+    public class GetAllTestViewModel
+    {
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string MiddleName { get; set; }
+        public string IdentityCardNumber { get; set; }
+        public string EmailAddress { get; set; }
+        public int ResultType { get; set; }
+        public int TotalCount { get; set; }
+    }
 }

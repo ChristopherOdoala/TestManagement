@@ -12,6 +12,8 @@ namespace TestManagement.Core.Models
         [Key]
         public int PcrTestBookingId { get; set; }
         public int PcrTestVenueId { get; set; }
+        [ForeignKey("PcrTestVenueId")]
+        public PcrTestVenues PcrTestVenues { get; set; }
         public DateTime BookingDate { get; set; }
 
         //Auto Generated

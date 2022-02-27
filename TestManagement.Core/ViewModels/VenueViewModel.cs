@@ -44,4 +44,12 @@ namespace TestManagement.Core.ViewModels
         public string Name { get; set; }
         public int VenueCapacity { get; set; }
     }
+
+    public class GetVenueWithCapacity
+    {
+        public string Name { get; set; }
+        public string Code { get; set; }
+        public int VenueCapacity { get; set; }
+        public int TotalCount { get; set; }
+    }
 }
